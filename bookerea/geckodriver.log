@@ -1,0 +1,20 @@
+1493409327450	geckodriver	INFO	Listening on 127.0.0.1:38101
+1493409328814	geckodriver::marionette	INFO	Starting browser /usr/lib/firefox/firefox.sh with args ["-marionette"]
+1493409341929	Marionette	INFO	Listening on port 43263
+1493409342378	Marionette	WARN	TLS certificate errors will be ignored for this session
+1493409380221	Marionette	INFO	New connections will no longer be accepted
+[Child 7156] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-oH9XcO/firefox-53.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 346
+1493409413146	geckodriver	INFO	Listening on 127.0.0.1:42101
+1493409414231	geckodriver::marionette	INFO	Starting browser /usr/lib/firefox/firefox.sh with args ["-marionette"]
+1493409417611	Marionette	INFO	Listening on port 46137
+1493409417689	Marionette	WARN	TLS certificate errors will be ignored for this session
+1493409811261	geckodriver	INFO	Listening on 127.0.0.1:60393
+1493409812315	geckodriver::marionette	INFO	Starting browser /usr/lib/firefox/firefox.sh with args ["-marionette"]
+1493409816146	Marionette	INFO	Listening on port 39479
+1493409816315	Marionette	WARN	TLS certificate errors will be ignored for this session
+*************************
+A coding exception was thrown and uncaught in a Task.
+
+Full message: TypeError: NetworkError when attempting to fetch resource.
+Full stack: 
+*************************

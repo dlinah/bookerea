@@ -1,0 +1,37 @@
+{% extends "siteapp/base-auth.html" %}
+{% block body %}
+ <p style="color: #FFFFFF"></p>
+<div class="ui middle aligned center aligned grid">
+    <div class="column">
+        <h2 class="ui teal image header">
+            <img src="../../static/images/logo1.png" class="image">
+            <div class="content " style="color:white;;">
+                Wellcome to bookerea
+            </div>
+        </h2>
+        <form action="/register/" class="ui form" method="post">{% csrf_token %}
+            <div class="ui stacked segment">
+                {% for field in form %}
+                    <div class="field">
+                        {{field.label}}{{ field.errors }}
+                        {% if field.label == 'Image'%}
+                        <label>image</label>
+                        {% endif %}
+                        {{ field }}
+                        <div class="hidden">{{ field.label }}</div>
+
+                    </div>
+                {% endfor %}
+                <div class="ui error message"> {{ form.non_field_errors }}</div>
+                <input type="submit" id="submit" class="ui fluid large pink submit button" value="register">
+            </div>
+        </form>
+
+        <div class="ui message">
+            already have an acount? <a href="/login">Log In</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

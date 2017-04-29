@@ -1,0 +1,65 @@
+        body {
+            background-color: #FFFFFF;
+        }
+
+        .ui.menu .item img.logo {
+            margin-right: 1.5em;
+        }
+
+        .main.container {
+            margin-top: 7em;
+        }
+
+        .wireframe {
+            margin-top: 2em;
+        }
+
+        .ui.footer.segment {
+            margin: 5em 0em 0em;
+            padding: 5em 0em;
+        }
+
+
+
+        .ui.main {
+            margin-top: 12%;
+        }
+
+        .card {
+        }
+
+        .nop {
+            padding: 0px !important;
+        }
+
+        /*not working*/
+        .fitimg {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .p1 {
+            padding: 1rem;
+        }
+        .no{
+            border: none!important;
+            box-shadow: none!important;
+            display: flex !important;
+        }
+        .smm{
+            margin:4px;
+            margin-top: 15px;
+        }
+        .cat{
+            position:absolute;
+            left:45%;
+            top:20%;
+        }
+        .wr{
+            word-wrap: break-word!important;
+            overflow-x: hidden;
+        }
+        .follow{
+            display: inline!important;
+        }
+

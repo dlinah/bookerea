@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/bookerea.iml" filepath="$PROJECT_DIR$/.idea/bookerea.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/django/lab1/mysite/.idea/mysite.iml" filepath="$USER_HOME$/Desktop/django/lab1/mysite/.idea/mysite.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/django/Day2/osad/.idea/osad.iml" filepath="$USER_HOME$/Desktop/django/Day2/osad/.idea/osad.iml" />
+    </modules>
+  </component>
+</project>

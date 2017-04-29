@@ -1,0 +1,30 @@
+{% extends "siteapp/base-auth.html" %}
+{% block body %}
+<div class="ui middle aligned center aligned grid">
+    <div class="column">
+        <h2 class="ui teal image header">
+            <img src="../../static/images/logo1.png" class="image">
+            <div class="content " style="color:white;;">
+                Log-in to your account
+            </div>
+        </h2>
+        <form class="ui large form" method="post">{% csrf_token %}
+            <div class="ui stacked segment">
+                {% for field in form %}
+                    <div class="field">
+                        {{ field.errors }}
+                        {{ field }}
+                        <div class="hidden">{{ field.label }}</div>
+                    </div>
+                {% endfor %}
+                <div class="ui error message"> {{ form.non_field_errors }}</div>
+                <input type="submit" id="submit" class="ui fluid large pink submit button" value="Login"/>
+            </div>
+        </form>
+        <div class="ui message">
+            New to us? <a href="/register">Sign Up</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

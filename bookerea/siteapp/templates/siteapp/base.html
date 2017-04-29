@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}home{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    {% csrf_token %}
+    <script type="text/javascript">
+        var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+        function csrfSafeMethod(method) {
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.ui.dropdown').dropdown();
+        });
+    </script>
+    <link rel="stylesheet" href="{% static 'style/main.css' %}"/>
+</head>
+</head>
+<body>
+<div class="ui fixed inverted menu">
+    <div class="ui container centered">
+        <a href="#" class="ui header item">
+
+            <img src="{% static 'images/logo1.png' %}"><span style="margin-left: 10px">Bookerea</span>
+        </a>
+        <a href="{%url 'book'%}" class="item">Home</a>
+        <a href="{% url 'author'%}" class="item">Authors</a>
+        <div class="ui simple dropdown item">
+           <a href="/categorys">Category</a>  <i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="/categorys">show all</a>
+                <a class="item" href="#">Link Item</a>
+                <a class="item" href="#">Link Item</a>
+            </div>
+        </div>
+        <div class="right menu">
+
+            <div class="item">
+                <div class="ui icon input">
+                    <input type="text" placeholder="Search...">
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+            {% if user.is_authenticated %}
+            <a class="ui item" href="/logout/">
+                Logout
+            </a>
+            {% else %}
+            <a class="ui item" href="/login/">
+                Login
+            </a>
+            <a class="ui item" href="/register/">
+                Signup
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+{% block body %}home{% endblock %}
+</body>
+</html>
+{% block js %}{% endblock %}
