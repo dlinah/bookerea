@@ -15,7 +15,7 @@
                         <div class="content">
                             <div class="ui grid">
                                 <div class="image column eight wide column nop ">
-                                    <img src="{% static book.cover %}" class="fitimg">
+                                    <a href="{% url 'book' pk=book.id%}"><img src="{% static book.cover %}" class="fitimg"></a>
                                 </div>
 
                                 <div class=" eight wide column p1 no ">

@@ -1,0 +1,49 @@
+{% extends "siteapp/base.html" %}
+{% block title %}book details{% endblock %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'style/book.css' %}"/>
+{% endblock%}
+{% block body %}
+<div class="ui main container">
+    <div class="ui piled segment">
+        <div class="tow column ui grid addp">
+            <div class="five wide column ">
+                <img class="ui image" src="{% static book.cover %}">
+            </div>
+            <div class="eight wide column">
+
+                <h2 class="header smm">{{book.title}}</h2>
+                <div class=" ui huge star rating row smm"
+                     data-rating="{% if book.rating %}{{book.rating}}{% endif%}"
+                     book="{{book.id}}"></div>
+                <div class="meta smm larger">by {{book.author.name}}
+                    {% if book.publish_date %}
+                    <br>date : {{book.publish_date |lower}}
+                    {% endif %}
+                    <p class="smm">Category: {{book.category.name}}</p>
+                </div>
+                <div class="description smm larger">
+                    {{book.desc}}
+                </div>
+                    {% if user.is_authenticated %}
+                    <div class="extra">
+                    <div  class="ui labeled orange icon right smm  no dropdown button  ">
+                        <div class="text">{% if book.mark_as %}{{book.mark_as}}{% else %}Mark As{% endif %}</div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu markas" id="{{book.id}}">
+                          <div class="item" data-value="w">wish list</div>
+                          <div class="item" data-value="c">currently reading</div>
+                          <div class="item" data-value="f">finished</div>
+                        </div>
+                      </div>
+                    </div>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}

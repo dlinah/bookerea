@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 MEDIA_ROOT = os.path.join(BASE_DIR, 'siteapp/static/')
 MEDIA_URL = '/uploadedimg/'
 
-LOGIN_REDIRECT_URL = '/book'
+LOGIN_REDIRECT_URL = '/books/'
 
 
 # Application definition
@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'siteapp.apps.SiteappConfig'
+    'siteapp.apps.SiteappConfig',
+    'notifications',
+
 ]
 
 MIDDLEWARE = [
@@ -71,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'siteapp.context_processors.categories_context_processor'
             ],
         },
     },

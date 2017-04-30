@@ -1,0 +1,65 @@
+{% extends "siteapp/base.html" %}
+{% block title %}list books{% endblock %}
+{% load static %}
+{% block body %}
+<div class="ui main container">
+    <div class="ui grid">
+        <div class="sixteen wide column">
+            <div class="ui piled segment">
+                <a class="ui green ribbon huge label">{{name}}</a>
+
+                <div class="ui tow cards" style="margin: 20px">
+                    {% for book in books %}
+                    <div class="card ">
+                        <div class="content">
+                            <div class="ui grid">
+                                <div class="image column eight wide column nop ">
+                                    <img src="{% static book.cover %}" class="fitimg">
+                                </div>
+
+                                <div class=" eight wide column p1 no ">
+                                    <div class="content wr ">
+                                        <div class=" ui large star rating row" data-rating="{% if book.rating %}{{book.rating}}{% endif%}" book="{{book.id}}"></div>
+                                        <h4 class="header smm">{{book.title}}</h4>
+                                        <div class="meta">by {{book.author.name}}
+                                        {% if book.publish_date %}
+                                            <br>date : {{book.publish_date |lower}}
+                                        {% endif %}
+                                        </div>
+                                        <div class="description " >{{book.desc|slice:":55"}}
+                                            {%if book.desc|length > 255 %}...<a href="/book/{{book.id}}">read more</a>{%endif%} </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                                    <span class="left floated like">
+                                      <i class=" like icon"></i>
+                                    </span>
+                                    {% if user.is_authenticated %}
+                                    <span  class="ui basic right floated no dropdown button fitimg nop">
+                                        <div class="text">{% if book.mark_as %}{{book.mark_as}}{% else %}Mark As{% endif %}</div>
+                                        <i class="dropdown icon"></i>
+                                        <div class="menu markas" id="{{book.id}}">
+                                          <div class="item" data-value="w">wish list</div>
+                                          <div class="item" data-value="c">currently reading</div>
+                                          <div class="item" data-value="f">finished</div>
+                                        </div>
+                                      </span>
+                                    {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}<script src="{% static 'js/home.js' %}"></script>{% endblock %}

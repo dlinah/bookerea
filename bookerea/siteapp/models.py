@@ -25,15 +25,17 @@ class Book(models.Model):
                 self.rating = Book_user.objects.get(book=self,user=user).rating
             except:
                 try:
-                    self.rating = Book_user.objects.filter(book=self).aggregate(Avg('rating'))
+                    self.rating = Book_user.objects.filter(book=self).aggregate(Avg('rating'))['rating__avg']
                 except:
                     print('no rating for book' + str(self.id))
+
         else:
             try:
-                self.rating = Book_user.objects.filter(book=self).aggregate(Avg('rating'))
+                self.rating = Book_user.objects.filter(book=self).aggregate(Avg('rating'))['rating__avg']
             except:
                 print('no rating for book'+str(self.id))
-
+        if self.rating == None:
+            self.rating=0.0
     def get_user_mark(self,user):
         try:
              self.mark_as= Book_user.objects.get(book=self,user=user).get_mark_as_display

@@ -1,10 +1,11 @@
 {% extends "siteapp/base.html" %}
-{% block title %}list categories{% endblock %}
+{% block title %}categories{% endblock %}
 {% load static %}
 {% block body %}
-<div class="cat ">
+<div class="cat">
 {% for c in cat %}
-    <p><h3>{{c.name}}</h3>
+    <center>
+        <h3>{{c.name}}</h3>
     {% if user.is_authenticated %}
         {% if c.id in mycat %}
             <button class="ui button greay un follow" id="{{c.id}}">unfollow</button>
@@ -12,7 +13,7 @@
             <button class="ui button orange follow" id="{{c.id}}">follow</button>
         {%endif%}
     {%endif%}
-    </p>
+    </center>
 {% endfor %}
     </div>
 {% endblock %}

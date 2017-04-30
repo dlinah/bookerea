@@ -1,0 +1,21 @@
+{% extends "siteapp/base.html" %}
+{% block title %}authors{% endblock %}
+{% load static %}
+{% block body %}
+<div class="auth">
+{% for c in authors %}
+    <center>
+        <h3>{{c.name}}</h3>
+        {% if user.is_authenticated %}
+            {% if c.id in my_auth %}
+                <button class="ui button greay un follow" id="{{c.id}}">unfollow</button>
+            {% else %}
+                <button class="ui button orange follow" id="{{c.id}}">follow</button>
+            {% endif %}
+        {% endif %}
+    </center>
+{% endfor %}
+</div>
+{% endblock %}
+{% block js %}<script src="{% static 'js/home.js' %}"></script>{% endblock %}
+

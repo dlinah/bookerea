@@ -5,18 +5,19 @@ from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.db.models import Q
+from django.views.decorators.http import require_GET
+
 
 
 
 class BookList(View):
 
     def get(self,request):
+        recommended=None
         books=Book.objects.all().order_by('-id')[:100]
-        books=self.populate_book(request,books)
+        books=populate_book(request,books)
         recent_books=books[:10]
-        print('pppppppp',recent_books)
-        popular=self.order_by_rating(books)
-        print('pppppppp',popular)
+        popular=order_by_rating(books)
         if request.user.is_authenticated():
             fcat=request.user.categories.all().values()
             fcat=list(map((lambda x: x['id']), fcat))
@@ -24,30 +25,33 @@ class BookList(View):
             fauthor=list(map((lambda x: x['id']), fauthor))
             print(fcat,fauthor)
             recommended=Book.objects.filter(Q(author_id__in=fauthor) | Q(category_id__in=fcat))
-            print('rrrrrrrrrr', recommended.values())
-            recommended=self.populate_book(request,recommended)
-        return render(request,'siteapp/book_list.html',{'recent':recent_books,'popular':popular,'recommended':recommended})
+            recommended=populate_book(request,recommended)
+        return render(request,'siteapp/book_list.html',{'recent':recent_books,'popular':popular,'recommended':recommended })
 
 
-    def order_by_rating(self,books):
-        b=list(books)
-        b.sort(key=lambda x: x.rating, reverse=True)
-        return b
+def order_by_rating(books):
+    b=list(books)
+    b.sort(key=lambda x: x.rating, reverse=True)
+    return b
 
 
-    def populate_book(self,request,books):
-        if request.user.is_authenticated():
-            for book in books:
-                book.rating(request.user)
-                book.get_user_mark(request.user)
-        else:
-            for book in books:
-                book.rating(0)
-        return books
+def populate_book(request,books):
+    if request.user.is_authenticated():
+        for book in books:
+            book.rating(request.user)
+            book.get_user_mark(request.user)
+    else:
+        for book in books:
+            book.rating(0)
+    return books
 
 
-class BookView(DetailView):
-    model = Book
+@require_GET
+def bookView(request, pk):
+    books = Book.objects.filter(id=pk)
+    books = populate_book(request,books)
+    return render(request, 'siteapp/book.html', {'book': books[0]})
+
 
 class BookUserApi(View):
     def post(self, request):

@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
-from ..models import Category
+from ..models import Category,Book
 from django.views import View
 from django.http import HttpResponse
+from django.views.decorators.http import require_GET
+
 
 
 class category(View):
@@ -23,3 +25,9 @@ class category(View):
                 return HttpResponse(' unfollow success')
         else:
             return HttpResponse('you are not logged in')
+
+@require_GET
+def categoryBookList(request,*args):
+    books=Book.objects.filter(category_id=args[0])
+    return render(request, 'siteapp/category.html', {'books':books,'name':args[1] })
+

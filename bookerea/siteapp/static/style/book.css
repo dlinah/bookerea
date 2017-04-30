@@ -1,0 +1,25 @@
+
+.ui.grid>.column:not(.row), .ui.grid>.row>.column{
+    width: auto!important;
+    position:relative;
+}
+.ui.grid>.column:not(.row)>img{
+    width: 240px;
+}
+.addp{
+    padding: 4%!important;
+}
+.extra{
+    position: absolute;
+    bottom:1rem;
+    left: 0;
+    width: 100%;
+
+}
+
+.smallp{
+    padding-bottom: 2%;
+}
+.larger{
+    font-size: larger;
+}
