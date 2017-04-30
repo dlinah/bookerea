@@ -5,6 +5,7 @@ from django.views import View
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
+from django.contrib.auth.models import Group
 
 
 CATEGORIES=('Science fiction',
@@ -25,8 +26,10 @@ def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST,request.FILES)
         if form.is_valid():
-            print('vaaaaaaaaaaaalid')
-            form.save()
+            user=form.save()
+            print(form)
+            g=Group.objects.get(name='all')
+            g.user_set.add(user)
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             return redirect('login')

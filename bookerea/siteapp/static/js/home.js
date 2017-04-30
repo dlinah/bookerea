@@ -109,4 +109,7 @@ $(document).ready(function() {
           $('.menu.search').html('')
       }
   })
+  $('#live_notify_list').click(function () {
+      
+  })
 })

@@ -15,16 +15,38 @@
             return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
         }
         $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
+            beforeSend: function (xhr, settings) {
                 if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
                     xhr.setRequestHeader("X-CSRFToken", csrftoken);
                 }
             }
-        });
+        })
+        function fill_notification(data) {
+            var menu = $('#live_notify_list')
+            if (menu) {
+                menu.html('');
+                for (var i=0; i < data.unread_list.length; i++) {
+                    var item = data.unread_list[i];
+                    var message = ""
+                    if(typeof item.data !== 'undefined' && item.data !== null){
+                        book=JSON.parse(item.data)
+                        book=book.data
+                        message ='<a class="item" href="/book/'+book.id+'" > <div class="content"> ' +
+                            '<b class="header">'+book.title+'</b> <div class="description"> ' +
+                            '<p>by: '+book.author+'</p> </div> </div> </a>'
+                    }
+                    menu.append(message)
+                }
+            }
+        }
     </script>
 
     {% block css %}{%endblock%}
     <link rel="stylesheet" href="{% static 'style/main.css' %}"/>
+
+    {% load notifications_tags %}
+    <script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>
+    {% register_notify_callbacks callbacks='fill_notification,fill_notification_badge' fetch=20 refresh_period=5 %}
 
 </head>
 </head>
@@ -38,8 +60,9 @@
         <a href="{%url 'books'%}" class="item">Home</a>
         <a href="{% url 'authors'%}" class="item">Authors</a>
         <div class="ui simple dropdown item">
-           <a href="{% url 'categories' %}">Category</a>  <i class="dropdown icon"></i>
+            <a href="{% url 'categories' %}">Category</a> <i class="dropdown icon"></i>
             <div class="menu">
+
                 <a class="item" href="{% url 'categories' %}">show all</a>
                 {% for category in categories%}
                 <a class="item" href="{% url 'category' category.id category.name %}">{{category.name}}</a>
@@ -47,18 +70,23 @@
             </div>
         </div>
         <div class="right menu">
-
-
             <div class="item sss">
                 <div class="ui  fluid multiple search selection dropdown" id="search">
-                  <input type="hidden" name="country" id="" value="kp">
-                  <i class="search link icon"></i>
-                  <div class="default text" id="ss">Search...</div>
-                  <div class="menu search">
+                    <input type="hidden" name="country" id="" value="kp">
+                    <i class="search link icon"></i>
+                    <div class="default text" id="ss">Search...</div>
+                    <div class="menu search">
 
-                  </div>
+                    </div>
                 </div>
             </div>
+            <div class="ui simple dropdown item">
+                <a class="ui circular red label" id="live_notify_badge"></a> <i class="alarm white icon"></i>
+                <div class="menu" id="live_notify_list">
+
+                </div>
+            </div>
+
             {% if user.is_authenticated %}
             <a class="ui item" href="/logout/">
                 Logout
@@ -77,18 +105,10 @@
 {% if messages %}
 <div class="messages">
     {% for message in messages %}
-    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    <p {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
     {% endfor %}
 </div>
 {% endif %}
-
-<!--{% load notifications_tags %}-->
-
-<!--<script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>-->
-<!--{% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}-->
-
-<!--{% notifications_unread %}-->
-
 
 {% block body %}home{% endblock %}
 </body>

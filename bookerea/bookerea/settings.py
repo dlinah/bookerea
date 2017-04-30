@@ -32,6 +32,7 @@ MEDIA_URL = '/uploadedimg/'
 
 LOGIN_REDIRECT_URL = '/books/'
 
+NOTIFICATIONS_USE_JSONFIELD=True
 
 # Application definition
 
